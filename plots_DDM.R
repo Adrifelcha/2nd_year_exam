@@ -17,6 +17,7 @@ boundary <- 2
 ndt <- 0.2
 
 randomWalk <- function(trials, mu1, boundary, ndt=0.1, drift.Coeff=1, dt=0.00015){
+  boundary <- boundary/2
   sqDT <- sqrt(dt)
   s.init <- c(0,0) 
   iter <- round(15/dt)  # Maximum number of iterations on the random walk 
@@ -37,7 +38,7 @@ randomWalk <- function(trials, mu1, boundary, ndt=0.1, drift.Coeff=1, dt=0.00015
     for(t in 2:iter){
       d1 <- steps[t,a]
       state[t,a] <- state[t-1,a]+d1
-      pass <- state[t,a]
+      pass <- abs(state[t,a])
       # Stop random-walk if boundary is passed
       if(pass >= boundary){
         finalT[a] <- t+(ndt/dt)   #Total no. of iterations required on each trial
@@ -63,7 +64,7 @@ randomWalk <- function(trials, mu1, boundary, ndt=0.1, drift.Coeff=1, dt=0.00015
       for(t in 2:iter){
         d1 <- more_steps_d1[t]
         state[t,a] <- state[t-1,a]+d1
-        pass <- state[t,a]
+        pass <- abs(state[t,a])
         
         if(pass >= boundary){
           added_iterations <- iter*whileLoopNo
@@ -90,8 +91,12 @@ X <- randomWalk(trials, mu1, boundary, ndt)
 par(mfrow=c(2,2))
 par(mar = c(2.5, 3.5, 2, 2.5))
 
+keep <- seq(1,nrow(X$state),3)
 par(mfrow=c(1,1), mar = c(2.5, 3.5, 2, 2.5))
-plot(X$state[!is.na(X$state[,1]),1], type="l", ylim=c(-2,2))
+plot(X$state[!is.na(X$state[,1]),1], type="l", ylim=c(-1,1), ann=F, axes=F)
+lines(c(0,90000),c(-1,-1))
+lines(c(0,90000),c(1,1))
+lines(c(0,0),c(-1,1))
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Take full random walk coordinates and extract final response
