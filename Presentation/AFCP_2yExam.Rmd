@@ -100,7 +100,7 @@ plotHC <- function(diffSc,label){
 
 **1.- The study of individual differences.**
 
-We discuss the differences between experimental and differential psychology, with an emphasis on how they treat between-subject variability.
+We discuss the distinctions between experimental and differential psychology, with an emphasis on how the different ways in which they treat between-subject variability leads to a *reliability paradox*.
 
 <span style="color:#DCE6FF">2.- Individual differences in cognitive control.</span>
 
@@ -217,11 +217,11 @@ class: middle, center
 
 --
 
-**Experimental research:** Meticulous variable manipulations are implemented in search of specific effects. 
+**Experimental research:** 
 
 --
 
-- **Q:** How does performance changes between *groups*? 
+- **Q:** How does performance change between *groups*? 
   
 --
   
@@ -233,11 +233,11 @@ class: middle, center
 
 --
 
-**Differential research:** Captures the individual variability observed in the data.
+**Differential research:** 
 
 --
 
-- **Q:** How do people differ from one another?
+- **Q:** How does performance change between *individuals*? 
 
 --
 
@@ -252,11 +252,11 @@ class: middle, center
 ## Two disciplines in psychology (Cronbach, 1957)
 
 
-**Experimental research:** Meticulous variable manipulations are implemented in search of specific effects. 
+**Experimental research:** 
 
 
 
-- **Q:** How does performance changes between *groups*? 
+- **Q:** How does performance change between *groups*? 
   
 
   
@@ -268,11 +268,11 @@ class: middle, center
 
 
 
-**Differential research:** Captures the individual variability observed in the data.
+**Differential research:** 
 
 
 
-- **Q:** How do people differ from one another?
+- **Q:** How does performance change between *individuals*? 
 
 
 
@@ -287,11 +287,11 @@ class: middle, center
 ## Two disciplines in psychology (Cronbach, 1957)
 
 
-**Experimental research:** Meticulous variable manipulations are implemented in search of specific effects. 
+**Experimental research:** 
 
 
 
-- **Q:** How does performance changes between *groups*? 
+- **Q:** How does performance change between *groups*? 
   
 
   
@@ -303,11 +303,11 @@ class: middle, center
 
 <br>
 
-**Differential research:** Captures the individual variability observed in the data.
+**Differential research:** 
 
 
 
-- **Q:** How do people differ from one another?
+- **Q:** How does performance change between *individuals*? 
 
 
 
@@ -470,24 +470,11 @@ The ability to ignore irrelevant information and to suppress prepotent responses
 
 There are three main executive functions (Miyake et al., 2000):
 
-1) Shifting between mental sets or tasks. 
+- Shifting between mental sets or tasks. (*Shifting*).
 
-2) Controlling inputs and responses considered when solving a task.
+- Controlling inputs and responses considered when solving a task. (*Cognitive control*).
 
-3) Monitoring and updating the contents of working memory. 
-
-
----
-
-# Cognitive control
-
-There are three main executive functions (Miyake et al., 2000):
-
-1) Shifting.
-
-**2) Cognitive control.**
-
-3) Updating. 
+- Monitoring and updating the contents of working memory. (*Updating*)
 
 --
 
@@ -495,9 +482,9 @@ There are three main executive functions (Miyake et al., 2000):
 
 Cognitive control has two main components (Friedman & Miyake, 2004):
 
-1) Response-distracter inhibition
+- Response-distracter inhibition
 
-2) Resistance to proactive interference
+- Resistance to proactive interference
 
 
 ---
@@ -851,6 +838,23 @@ Correlational studies are conducted to capture individual differences in a given
 
 ## Reliability of difference scores
 
+<br>
+
+--
+
+- Hedge et al. (2018) conducted three test-retest studies. The most reliable cognitive control task was found to be the Stroop task ( $0.60 - 0.66$ )
+
+--
+
+<br>
+
+- Enkavi et al. (2019) summarize reliability indices reported in the literature, which were found to be highly variable (i.e., the Stroop task  varied between 0.27 and 0.8, and the Simon task, oscillated between the whole $0-1$ interval). 
+
+
+---
+
+## Reliability of difference scores
+
 
 <br>
 
@@ -874,25 +878,6 @@ Let's assume...
 
 
 ---
-
-## Reliability of difference scores
-
-<br>
-
---
-
-- Hedge et al. (2018) conducted three test-retest studies. The most reliable cognitive control task was found to be the Stroop task ( $0.60 - 0.66$ )
-
---
-
-<br>
-
-- Enkavi et al. (2019) summarize reliability indices reported in the literature, which were found to be highly variable (i.e., the Stroop task  varied between 0.27 and 0.8, and the Simon task, oscillated between the whole $0-1$ interval). 
-
-
-
----
-
 
 ## Reliability of difference scores
 
@@ -1023,7 +1008,7 @@ class: middle, center
 
 ---
 
-## The Worst performance rule
+## The Worst Performance rule
 
 --
 
@@ -1063,7 +1048,7 @@ Mathematical models that describe empirical RT distributions and whose quantitat
 
 **2.- Choice RT models**
 
-- RTs are conceived as the stopping point of an internal processes generating the choices observed, (Noorani & Carpenter, 2016), and as such, RTs are modeled jointly with the choices observed.
+RTs are conceived as the stopping point of an internal processes generating the choices observed, (Noorani & Carpenter, 2016), and as such, RTs are modeled jointly with the choices observed.
 
 ---
 
@@ -1118,11 +1103,6 @@ text(12, 0.12, col="darkorange3", cex=1.8,
 
 ---
 
-## Simple RT models: the logNormal distribution
-
-
----
-
 ## Choice RT models
 
 --
@@ -1169,67 +1149,11 @@ text(12, 0.12, col="darkorange3", cex=1.8,
 
 ---
 
-### LATER model components
-
---
-
-- Every stimuli $S$ has an initial value $S_0$
-
---
-
-- Internal process progresses linearly with constant rate $r$, which varies across trials following a normal distribution.
-
---
-
-- Response is initiated when a threshold $S_T=S_0 + \theta$ is met
-
---
-
-- RTs observed are given by $T=\frac{\theta}{r}$
-
---
-
-- Since $r \sim \mbox{Normal}(\mu, \sigma)$, then $\frac{1}{T}$ is also normally distributed, thus replicating the empirically reported pattern.
-
----
-
 ### LATER model
 
 ```{r, echo=FALSE, fig.align='center',out.width="90%", fig.cap="Noorani and Carpenter, 2016"}
 knitr::include_graphics("./Pictures/LATER.png")
 ```
-
----
-
-### Linear ballistic accumulation model (Brown & Heathcote, 2008)
-
-<br>
-
-- An extension of the LATER model that incorporates a parameter to capture non-decision time.
-
---
-
-<br>
-
-- The accumulation rate is now referred to as drift rate, $d$.
-
---
-
-<br>
-
-- Each response alternative is assumed to have its own independent accumulator.
-
---
-
-<br>
-
-- The response observed corresponds to the first accumulator to reach the threshold value $b$. 
-
---
-
-<br>
-
-- The starting point per accumulator is assumed to vary across trials following a uniform distribution with bounds 0 and $a$ (such that $a < b$)
 
 ---
 
@@ -1270,33 +1194,57 @@ class: middle, center
 
 ## Latent variable models and psychometrics
 
-The models described in previous chapters are identified as cognitive models because they account for the psychological processes that underlie the data observed. In contrast, psychometric models, or LVMs, constitute a type of model that assumes that the data observed results from the linear combination of a small number of latent variables that vary across different random levels (i.e., across participants, conditions, tasks, etc.) and some measurement error (Baribault, 2019). 
+--
 
-LVMs are used to identify the components that can account for the data observed and their different levels of variation. This type of model allows us to determine whether variability in the data can be attributed to differences between participants or to the effect of specific features of the experimental design (i.e., experimental conditions, stimuli characteristics, levels of an experimental manipulation, etc.). 
+<br>
 
-An important difference between cognitive models and LVMs is that the latter do not assume that every latent variable associated with the data has a relevant psychological interpretation. LVMs are often implemented with the goal of identifying the smallest number of substantially relevant latent components that can be used to account for the majority of the variability contained in the data (Bollen, 2002).
+- Cognitive models account for the psychological processes that underlie the data observed.
+
+--
+
+<br>
+
+- Psychometric models (LVMs) assumes that the data observed can be explained as the linear combination of latent variables that vary across different levels (i.e., across participants, conditions, tasks, etc.; Baribault, 2019). 
+
+--
+
+<br>
+
+- LVMs do not assume that every latent variable has a relevant psychological interpretation (Bollen, 2002).
 
 ---
 
 ## Cognitive psychometrics and individual differences
 
-We use the term cognitive psychometrics to refer to the psychometric treatment of cognitive models (Batchelder, 1998; Batchelder, 2010) with the intention of identifying whether the cognitive processes described by cognitive models vary across participants, items, conditions, tasks, and so on. For example, clinical researchers aim to identify how individuals from different populations may vary in terms of the parameter values estimated from cognitive models used to account for their performance in cognitive tasks, and how these changes may be elicited over time or across conditions.
+<br>
 
-Using LVM techniques onto parameters associated with a cognitive model presents a reconciliation point among experimental and differential research (Cronbach, 1957; Borsboom, 2006). The main advantage of cognitive psychometrics is that it preserves the best of both worlds: First, parameters derived from cognitive models are known to be informative of the cognitive processes underlying behavior and thus are highly interpretable. Second, we move away from the use of aggregated data to recognize the richness of the information provided by the data variability, considering differences in performance across many possible levels of random variation (Riefer et al., 2002).
+- Cognitive psychometrics refers to the psychometric treatment of cognitive models (Batchelder, 1998; Batchelder, 2010). 
 
-As an example of the application of the cognitive psychometrics approach, we discuss the study conducted by Schmiedek et al. (2007). In this study, eight different choice response time tasks were applied along with six tasks used to measure working memory and intelligence. From the data collected, an exGaussian model was fit to the RT data and parameters of the DDM were estimated using both RTs and choice data. Then, the authors performed confirmatory factorial analysis techniques on all parameter values obtained, and report that individual differences in the rate parameter of the exGaussian distribution (i.e., ) were found to be a unique predictor for the individual differences in the performance observed across the different working memory and reasoning tasks included in the study. Along these lines, we can also find studies on the latent variable structure of cognitive control from the perspective of cognitive psychometrics (Miyake et al., 2000; Friedman and Miyake, 2004).
+--
+
+- The goal is to identify whether the cognitive processes described by cognitive models vary across participants, items, conditions, tasks, and so on. 
+
+--
+
+- Cognitive psychometrics reconciliates the differences between experimental and differential research (Cronbach, 1957; Borsboom, 2006). 
 
 ---
 
-## Cognitive latent variable models 
+## Cognitive psychometrics and individual differences
 
-The joint approach postulated by cognitive psychometrics allows researchers to make conclusions far more informative than either a cognitive model or an LVM could afford separately. LVMs are regarded as informative of the internal structure of the data, but these types of models provide very limited insights into the underlying processes and mechanisms that could be generating the data, while cognitive models are limited in their ability to identify higher-order latent structures. 
+Some examples:
 
-Despite the advantages presented by cognitive psychometrics in terms of the enhanced insights we can gain from the data collected about the underlying processes of interest, the applications described in the previous section present some major limitations. The studies conducted by Friedman and Miyake in 2004 and by Schmiedek et al. in 2007 consist of a two-step application of the joint modeling technique postulated by the cognitive psychometrics approach. Both studies perform the parameter estimation from the cognitive model of interest first, and then in a second step, they use latent variable modeling techniques to describe the latent variable structure of these parameter values. This two-step approach is limited because the variability contained in the data is only used to inform the parameter estimation, but it is neglected in the identification of their latent variable structure. Thus, the latent variable structure revealed in the second step considers only the variability in the parameter values recovered, while ignoring the uncertainty contained in the raw data.
+- Schmiedek et al. (2007) fit an exGaussian model to the RT data and parameters of the DDM were estimated using both RTs and choice data. Then, the authors performed CFA techniques on all parameter values obtained. 
 
-As an alternative, Vandekerckhove (2014) introduced CLVMs as a class of models that explore the latent variable structure of the parameters of cognitive models, all as part of a hierarchical Bayesian model. As an illustrative example, the author presents a CLVM that uses the DDM as the main cognitive model, such that by imposing a latent variable model to describe the parameters of the DDM we are now able to draw substantive conclusions about the latent variables that could be explaining the differences observed in processing speed, response caution, and son on, that are made evident if we simply compare the parameter values recovered across different possible levels of variation.
+- Studies on the latent variable structure of cognitive control from the perspective of cognitive psychometrics (Miyake et al., 2000; Friedman and Miyake, 2004).
 
-CLVMs allow to make inferences about the unobserved cognitive processes generating the data collected in terms of the influence of many unobserved latent variables. A key feature of CLVM is that both the cognitive model parameters and their latent variable structure is being inferred as part of a single hierarchical Bayesian model. This feature comes with the huge advantage that the uncertainty contained in the data is captured and allocated across both model components (Vandekerckhove, 2014; Baribault, 2019). 
+---
+
+## Cognitive latent variable models
+
+- Vandekerckhove (2014) introduced a class of models that explore the latent variable structure of the parameters of cognitive models, all as part of a hierarchical Bayesian model. 
+
+- This feature comes with the huge advantage that the uncertainty contained in the data is captured and allocated across both model components (Vandekerckhove, 2014; Baribault, 2019). 
 
 
 ---
