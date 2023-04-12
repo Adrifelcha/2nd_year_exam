@@ -1,0 +1,116 @@
+---
+title: "Proposed Reading List for Second-Year Project"
+author: "Adriana F. Chávez De la Peña"
+date: "Fall, 2022"
+bibliography : "indivDiff.bib"
+ 
+output: 
+  bookdown::pdf_document2:
+    toc: false
+  citation_package: natbib
+fontsize: 11pt
+geometry: margin=1in
+
+biblio-style: apa
+
+
+header-includes   :
+   - \usepackage{bm}
+   - \usepackage{amsmath}
+   - \usepackage{setspace}
+   
+csl               : apa6.csl
+
+nocite: |
+    @Abdi.Williams-2010
+    @Baayen.etal-2002
+    @Basanovic.etal-2020
+    @Bollen-1989
+    @Cretenoud.etal-2021
+    @Draheim.etal-2016
+    @Draheim.etal-2018
+    @Draheim.etal-2019
+    @Enkavi.etal-2019
+    @Fischer.Weber-1997
+    @Flowers.Wilcox-1982
+    @Friedman.Miyake-2004
+    @Frischkorn.etal-2019
+    @Hedge.etal-2018
+    @Ito.etal-2015
+    @Kane.etal-2001
+    @Lee.Webb-2005
+    @Logan.Cowan-1984
+    @Logie.etal-1996
+    @MacLeod-1991a
+    @Meier.etal-2018
+    @Merkle.Wang-2018
+    @Miyake.etal-2000
+    @Miyake.Friedman-2012
+    @Morey.etal-2011
+    @Fischer.Weber-1997
+    @Oh.Kim-2010
+    @Oravecz.etal-2016
+    @Paap.Sawi-2016
+    @Pratte.etal-2010a
+    @Revelle.etal-2011
+    @Rey-Mermet.etal-2018
+    @Ridderinkhof.etal-2005
+    @RINDSKOPF-1984
+    @Roberts.etal-1994
+    @Rouder.etal-2018
+    @Rouder.etal-2019
+    @Rouder.Haaf-2019
+    @Salthouse-1996
+    @Schmiedek.etal-2007
+    @Schubert.etal-2019
+    @Schubert.Frischkorn-2020
+    @Schweizer.etal-2003
+    @Semmes.etal-2011
+    @Spearman-1904
+    @Stroop-1935
+    @Tipping.Bishop-1999
+    @Tsukahara.etal-2020
+    @Unsworth.etal-2004
+    @Unsworth.etal-2021
+    @Uttl.Graf-1997
+    @Vandekerckhove-2014
+    @vonBastian.etal-2015
+    @Whitehead.etal-2019
+    @Xiao.etal-2022
+
+
+---
+
+# General description
+
+For my 2ndYear project, I'd like to present a literature review of the study of Individual differences in Inhibition Control. If you feel I have missed critical references, please let me know.
+
+# Justification
+
+Overall, the reading list here presented can be categorized in the following six big areas, described below:
+
+## The reliability paradox
+
+This section constitutes a prelude to the discussion about individual differences. It contains a robust group of papers that explore the contrast between reliability at the level of overall performance vs individual differences, the differences between aggregate and individual-level effects: @Enkavi.etal-2019, @Draheim.etal-2019, @Hedge.etal-2018, @Paap.Sawi-2016; @Logie.etal-1996.
+
+## Overview of the study of individual differences in Psyschology
+
+This set of papers were selected to present a general idea of what differential Psychology is (@Rouder.Haaf-2019, @Revelle.etal-2011, @Lee.Webb-2005), its developments (@Baayen.etal-2002, @Semmes.etal-2011, @Schweizer.etal-2003) and a few examples of different areas where it has been applied (@Cretenoud.etal-2021, @Ito.etal-2015) and the difficulties associated with the use of response times as dependent measures (@Draheim.etal-2016, @Draheim.etal-2019).
+
+## Inhibition control
+
+As a prelude to the the study of individual differences  in inhibition control, we include these set of papers that contain valuable information about the nature of Inhibition control (@Logan.Cowan-1984, @Salthouse-1996) and the role it plays as an Executive Function (@Miyake.etal-2000, @Tsukahara.etal-2020) and relevant descriptions of the tasks designed to measure it (@Stroop-1935, @MacLeod-1991a, @Uttl.Graf-1997, @Unsworth.etal-2004, @Meier.etal-2018, @Flowers.Wilcox-1982).
+
+## Individual differences in Inhibition control
+
+Following immediately from the previous section, we have a set of papers that specifically deal with the study of individual differences in inhibition control, either at the level of single tasks (@Unsworth.etal-2004, @Meier.etal-2018), their relationship with other processes such as working memory (@Kane.etal-2001) or, of particular  interest to us, the relationships between the scores obtained across different tasks designed to measure inhibition control (@Whitehead.etal-2019, @Ridderinkhof.etal-2005, @Xiao.etal-2022), often done with the interest of exploring the dimensionality of inhibition control (@Friedman.Miyake-2004, @Rey-Mermet.etal-2018).
+
+## General: Methods
+
+This set of papers include relevant information for the data analysis derived from this project, particularly in terms of Bayes Factors (@Morey.etal-2011, @Rouder.etal-2018), latent variable analyses such as CFA or PCA (@Bollen-1989, @Tipping.Bishop-1999, @Oh.Kim-2010, @Merkle.Wang-2018) and few other (@Spearman-1904)
+
+## Future directions: General speed
+
+Last but not least, we have the most recent section added to the reading list. Given the difficulties associated when difference scores are used to study individual differences in inhibition control -which we assume to be due to the small variability in these data, @Rouder.etal-2019-, we have decided to take one step back and study general speed instead. The reading list for this specific list is quite short as of today, but we expect it to keep growing as we make progress: @Salthouse-1996, @Frischkorn.etal-2019, @Schubert.Frischkorn-2020, @Cretenoud.etal-2021.
+
+# References
