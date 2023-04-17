@@ -53,7 +53,7 @@ text(choices[1,1]+0.12,choices[1,2]+0.23,"observed",
 abline(h = 0, lty=2, col="gray50")
 abline(v = 0, lty=2, col="gray50")
 points(choices[1,1],choices[1,2], type = "p", pch =16, cex=1.2,
-         col=rgb(0.2,0.5,0.5,1))
+       col=rgb(0.2,0.5,0.5,1))
 text(-1.7,-1,"Drift vector", cex=0.9, f=2, col="navy")
 text(-1.85,-1.2,expression(paste("{ ",theta," , ",delta," }")), cex=1, f=2, col="navy")
 text(-1.745,-1.39,expression(paste("{ ",mu,"1 , ",mu,"2 }")), cex=1, f=2, col="dodgerblue4")
@@ -81,17 +81,17 @@ text(-1.5,1.3,"Boundary", cex=0.9, col=arrow.color, f=2)
 par(pty="s")
 layout.matrix <- matrix(c(1, 1, 2, 3), nrow = 2, ncol = 2)
 layout(mat = layout.matrix,
-       heights = c(2, 2), # Heights of the two rows
+       heights = c(2, 3), # Heights of the two rows
        widths = c(3, 2)) # Widths of the two columns
 #par(mfrow=c(1,2))
-par(mar = c(0, 0, 2, 2)) # Set the margin on all sides to 2
-pm <- boundary+0.1 #Plot margin
+par(mar = c(0, 0, 0, 2)) # Set the margin on all sides to 2
+pm <- boundary #Plot margin
 plot(-10:10,-10:10,type="n", ann = FALSE, axes = FALSE,
      xlim=c(-pm,pm),ylim=c(-pm,pm))
 z = seq(1,sum(!is.na(state[,,1])),length.out=300)
 for(i in 1:trials){
-    points(state[z,,i], type = "l", col=rgb(0.2,0.7,0.6,0.08), lwd=2)
-    }
+  points(state[z,,i], type = "l", col=rgb(0.2,0.7,0.6,0.08), lwd=2)
+}
 points(circle[,1],circle[,2], type="l")
 draw.angle = polarToRect(seq(0,as.numeric(polar.coordinates[1]),0.01), 0.5)
 points(draw.angle[,1],draw.angle[,2], type="l", col="navy", lwd=2)
@@ -100,12 +100,9 @@ text(1.15,1.6,expression(delta), cex=1.4, col="navy", f=2)
 abline(h = 0, lty=2, col="gray50")
 abline(v = 0, lty=2, col="gray50")
 for(i in 1:trials){
-    points(choices[i,1],choices[i,2], type = "p", pch =16, cex=1.2,
-           col=rgb(0.2,0.5,0.5,0.25))
-    }
-text(3.2,0.15,"0", cex=0.8, f=2, col="black")
-text(3.1,-0.15,"2", cex=0.8, f=2, col="black")
-text(3.2,-0.15,expression(pi), cex=1, f=1, col="black")
+  points(choices[i,1],choices[i,2], type = "p", pch =16, cex=1.2,
+         col=rgb(0.2,0.5,0.5,0.25))
+}
 signal.boundary = polarToRect(3,boundary)
 arrow.color = "skyblue4"
 Arrows(-0.05, 0.05, -2.5, 1.5, code = 2, arr.length = 0.2, arr.width = 0.2, 
@@ -120,5 +117,11 @@ text(-2.7,1.6,expression(eta), cex=1.4, col=arrow.color, f=2)
 lines(c(drift.line.down[1],drift.line.up[2]), 
       c(drift.line.down[1],drift.line.up[2]), lwd=2, col="navy")
 
-hist(rnorm(100,1,0.1))
-hist(rnorm(100,1,0.1))
+polar <- rectToPolar(choices[,1],choices[,2])
+hist(polar[,1], xlim=c(0,2*pi), ann=F, axes=F, col=rgb(0.2,0.5,0.5,0.8))
+axis(1,c(0,pi,2*pi),c(0,expression(pi),expression(paste(2,pi))))
+mtext("Responses observed", 1, f=2, line=2.5)
+
+hist(finalT, breaks = 10, ann=F, axes=F, xlim=c(0,2.5), col="#5458DA")
+axis(1,seq(0,2.5,0.5),seq(0,2.5,0.5))
+mtext("Response time", 1, f=2, line=2.5)
