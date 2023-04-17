@@ -19,6 +19,9 @@ circle <- polarToRect(all.Angles,boundary)
 polar.coordinates = rectToPolar(mu1,mu2)
 draw.angle = polarToRect(seq(0,as.numeric(polar.coordinates[1]),0.01), 1)
 
+drift.line.up <- polarToRect(polar.coordinates[1],boundary+0.2)
+drift.line.down <- polarToRect(polar.coordinates[1],-(boundary+0.5))
+
 par(pty="s")
 par(mar = c(0, 0, 0, 0)) # Set the margin on all sides to 2
 pm <- boundary+0.2 #Plot margin
@@ -70,5 +73,52 @@ Arrows(-2.5, 1.5, -0.05, 0.05, code = 2, arr.length = 0.2, arr.width = 0.2,
 text(-1.5,1.1,expression(eta), cex=1.4, col=arrow.color, f=2)
 text(-1.5,1.3,"Boundary", cex=0.9, col=arrow.color, f=2)
 
-#paleturquoise4
 
+
+############################################################
+#########
+############################################################
+par(pty="s")
+layout.matrix <- matrix(c(1, 1, 2, 3), nrow = 2, ncol = 2)
+layout(mat = layout.matrix,
+       heights = c(2, 2), # Heights of the two rows
+       widths = c(3, 2)) # Widths of the two columns
+#par(mfrow=c(1,2))
+par(mar = c(0, 0, 2, 2)) # Set the margin on all sides to 2
+pm <- boundary+0.1 #Plot margin
+plot(-10:10,-10:10,type="n", ann = FALSE, axes = FALSE,
+     xlim=c(-pm,pm),ylim=c(-pm,pm))
+z = seq(1,sum(!is.na(state[,,1])),length.out=300)
+for(i in 1:trials){
+    points(state[z,,i], type = "l", col=rgb(0.2,0.7,0.6,0.08), lwd=2)
+    }
+points(circle[,1],circle[,2], type="l")
+draw.angle = polarToRect(seq(0,as.numeric(polar.coordinates[1]),0.01), 0.5)
+points(draw.angle[,1],draw.angle[,2], type="l", col="navy", lwd=2)
+text(0.6,0.25,expression(theta), cex=1.4, col="navy", f=2)
+text(1.15,1.6,expression(delta), cex=1.4, col="navy", f=2)
+abline(h = 0, lty=2, col="gray50")
+abline(v = 0, lty=2, col="gray50")
+for(i in 1:trials){
+    points(choices[i,1],choices[i,2], type = "p", pch =16, cex=1.2,
+           col=rgb(0.2,0.5,0.5,0.25))
+    }
+text(3.2,0.15,"0", cex=0.8, f=2, col="black")
+text(3.1,-0.15,"2", cex=0.8, f=2, col="black")
+text(3.2,-0.15,expression(pi), cex=1, f=1, col="black")
+signal.boundary = polarToRect(3,boundary)
+arrow.color = "skyblue4"
+Arrows(-0.05, 0.05, -2.5, 1.5, code = 2, arr.length = 0.2, arr.width = 0.2, 
+       arr.adj = 0.5, arr.type = "curved", segment = TRUE, 
+       col = arrow.color, lcol = arrow.color, lty = 2, 
+       arr.col = arrow.color, lwd = 1, arr.lwd = 2)
+Arrows(-2.5, 1.5, -0.05, 0.05, code = 2, arr.length = 0.2, arr.width = 0.2, 
+       arr.adj = 0.5, arr.type = "curved", segment = TRUE, 
+       col = arrow.color, lcol = arrow.color, lty = 2, 
+       arr.col = arrow.color, lwd = 1, arr.lwd = 2)
+text(-2.7,1.6,expression(eta), cex=1.4, col=arrow.color, f=2)
+lines(c(drift.line.down[1],drift.line.up[2]), 
+      c(drift.line.down[1],drift.line.up[2]), lwd=2, col="navy")
+
+hist(rnorm(100,1,0.1))
+hist(rnorm(100,1,0.1))
