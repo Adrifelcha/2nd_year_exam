@@ -143,7 +143,7 @@ layout.matrix <- matrix(c(1, 0, 2,
                         nrow = 3, ncol = 3, byrow = TRUE)
 layout(mat = layout.matrix,
        heights = c(2.5, -0.75, 4), # Heights of the two rows
-       widths = c(5, 0.1, 2.5)) # Widths of the two columns
+       widths = c(5.5, 0.1, 2.5)) # Widths of the two columns
 pm <- boundary #Plot margin
 ########################################
 # Left panel: The circle
