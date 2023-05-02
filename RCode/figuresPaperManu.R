@@ -1,6 +1,7 @@
 set.seed(123)
 library(grid)
 library(shape)
+library(geostats)
 
 trials = 500
 boundary= 3
@@ -193,3 +194,113 @@ mtext("Responses", 1, f=1, line=2.9, cex = cex.text)
 hist(finalT, breaks = 15, ann=F, axes=F, xlim=c(0.25,2.5), col="#5458DA")
 axis(1,seq(0.5,2.5,0.5),seq(0.5,2.5,0.5), cex.axis=cex.text+0.5)
 mtext("Response times", 1, f=1, line=2.9, cex = cex.text)
+
+
+# ##############################################################
+# # Figure 3: Thurstonian DDM - Color wheel
+# # ##############################################################
+# Define colors in Color wheel
+########################################
+nPoints = nrow(circle)
+rot = round(nPoints/6,0)+1
+
+keepmax <- rep(227,rot)
+keepmin <- rep(28,rot)
+decrease <- seq(224,28,length.out=rot)
+increase <- seq(31,227,length.out=rot)
+r = c(keepmax,decrease,keepmin,keepmin,increase,keepmax)
+g = c(increase,keepmax,keepmax,decrease,keepmin,keepmin)
+b = c(keepmin,keepmin,increase,keepmax,keepmax,decrease)
+max = 227
+r = round(r/max,2)
+g = round(g/max,2)
+b = round(b/max,2)
+
+# Defining special variables
+########################################
+# Define list of angle to draw the lower thresh per cat
+bound.list <- list("orange.lowBound" = 0.275,
+                   "yellow.lowBound" = 0.817645,
+                   "green.lowBound" = 1.212026,
+                   "blue.lowBound" = 2.677945,
+                   "purple.lowBound" = 4.43,
+                   "pink.lowBound" = 4.9,
+                   "red.lowBound" = 5.6)
+# Define length of threshold
+length.threshold = pm+10
+
+a.orange <- seq(a.orange.down,a.yellow.down,length.out=100)
+a.yellow <- seq(a.yellow.down,a.green.down,length.out=100)
+a.green <- seq(a.green.down,a.blue.down,length.out=100)
+a.blue <- seq(a.blue.down,a.purple.down,length.out=100)
+a.purple <- seq(a.purple.down,a.pink.down,length.out=100)
+a.pink <- seq(a.pink.down,a.red.down,length.out=100)
+a.red <- seq(a.red.down,(2*pi)+a.orange.down,length.out=100)
+
+Kappa = 10
+d.orange = vonMises(a=a.orange,mu=as.numeric(dangle),kappa=Kappa)
+d.yellow = vonMises(a=a.yellow,mu=as.numeric(dangle),kappa=Kappa)
+d.green = vonMises(a=a.green,mu=as.numeric(dangle),kappa=Kappa)
+d.blue = vonMises(a=a.blue,mu=as.numeric(dangle),kappa=Kappa)
+d.purple = vonMises(a=a.purple,mu=as.numeric(dangle),kappa=Kappa)
+d.pink = vonMises(a=a.pink,mu=as.numeric(dangle),kappa=Kappa)
+d.red = vonMises(a=a.red,mu=as.numeric(dangle),kappa=Kappa)
+
+show.trials <- 10
+
+# Setting up margins and font
+########################################
+cex.text <- 1.25
+cex.greek <- 1.7
+f = 1
+par(pty="s")             # Square canvas
+par(mfrow=c(1,1),        # A single plot
+    mar = c(0, 0, 0, 0)) # outer margins
+pm <- boundary+1.2  # xlim and ylim
+
+########################################
+# Draw base circle
+########################################
+plot(-10:10,-10:10,type="n", ann = FALSE, axes = FALSE,
+     xlim=c(-pm,pm),ylim=c(-pm,pm))
+a <- seq(from=0,to=2*pi,length.out=300)
+d <- vonMises(a=a,mu=as.numeric(dangle),kappa=Kappa)
+polygon(x=(boundary+d)*cos(a),y=(boundary+d)*sin(a),xpd=NA, col="gray", lwd=2)
+polygon(x=(boundary+d.orange)*cos(a.orange),y=(boundary+d.orange)*sin(a.orange),xpd=NA, col="orange")
+symbols(x=0,y=0,circles=boundary,add=TRUE,inches=FALSE,xpd=NA,fg='grey50',bg = "white")
+for(i in 1:nCols){
+  w = round(i/nrow(circle),2)
+  points(circle[i,1],circle[i,2], col = rgb(r[i],g[i],b[i],1), lwd=10)
+}
+for(i in 1:show.trials){
+  z = seq(1,sum(!is.na(state[,,i])),length.out=55)
+  points(state[z,,i], type = "l", col="gray75", lwd=1)
+}
+for(a in bound.list){
+  run = polarToRect(a,length.threshold)[1]
+  rise = polarToRect(a,length.threshold)[2]
+  lines(c(0,run),c(0,rise))
+}
+text(boundary+0.5,3.5, "Yellow", f=2, cex=cex.text)
+text(boundary+0.9,1.75, "Orange", f=2, cex=cex.text)
+text(boundary+0.5,-0.5, "Red", f=2, cex=cex.text)
+text(boundary-0.75,-2.75, "Pink", f=2, cex=cex.text)
+text(0,-3.5, "Purple", f=2, cex=cex.text)
+text(-boundary-0.5,-0.5, "Blue", f=2, cex=cex.text)
+text(-boundary+1.5,3.2, "Green", f=2, cex=cex.text)
+for(i in 1:show.trials){
+  points(choices[i,1],choices[i,2], type = "p", pch =16, cex=1.5,
+         col=rgb(0,0,0,0.75))
+}
+
+
+
+# Extra cool functions
+#############################################################
+# col.wheel <- function(str, cex=0.75) {
+#   cols <- colors()[grep(str, colors())]
+#   pie(rep(1, length(cols)), labels=cols, col=cols, cex=cex)
+#   cols
+# }
+# 
+# col.wheel("rod")
