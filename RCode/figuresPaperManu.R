@@ -256,7 +256,7 @@ f = 1
 par(pty="s")             # Square canvas
 par(mfrow=c(1,1),        # A single plot
     mar = c(0, 0, 0, 0)) # outer margins
-pm <- boundary+1.2  # xlim and ylim
+pm <- boundary+1.15  # xlim and ylim
 
 ########################################
 # Draw base circle
