@@ -13,7 +13,7 @@ dlength <- polar.coordinates[2]
 draw.angle = polarToRect(seq(0,as.numeric(polar.coordinates[1]),0.01), 1)
 
 if(!exists("randomWalk")){
-   randomWalk = cddm.randomWalk(trials,mu1,mu2,boundary)
+  randomWalk = cddm.randomWalk(trials,mu1,mu2,boundary)
 }
 
 state  <- randomWalk$state
@@ -91,7 +91,7 @@ text(-2.1,0.27,"radius", cex=cex.text, col=arrow.color, f=f)
 ########################################
 # Drift vector
 ########################################
-# Drift vector
+# Drift vector 
 lines(X,Y, lwd=2, col="navy", lty=2)
 # text(-1.7,-0.65,"Drift vector", cex=1.2, f=2, col="navy")
 # text(-1.78,-1.2,expression(paste("{ ",theta,"   ,  ",delta,"  }")), cex=1.3, f=2, col="navy")
@@ -145,6 +145,7 @@ layout.matrix <- matrix(c(1, 0, 2,
 layout(mat = layout.matrix,
        heights = c(2.5, -0.75, 4), # Heights of the two rows
        widths = c(5.5, 0.1, 2.5)) # Widths of the two columns
+#layout(matrix(c(1,1,2,3), nrow=2))
 pm <- boundary #Plot margin
 ########################################
 # Left panel: The circle
@@ -154,9 +155,9 @@ plot(-10:10,-10:10,type="n", ann = FALSE, axes = FALSE,
 points(circle[,1],circle[,2], type="l")
 show.trials <- 150
 for(i in 1:show.trials){
-    z = seq(1,sum(!is.na(state[,,i])),length.out=250)
-    points(state[z,,i], type = "l", col=rgb(0.2,0.7,0.6,0.09), lwd=2)
-    }
+  z = seq(1,sum(!is.na(state[,,i])),length.out=250)
+  points(state[z,,i], type = "l", col=rgb(0.2,0.7,0.6,0.09), lwd=2)
+}
 draw.angle = polarToRect(seq(0,as.numeric(polar.coordinates[1]),0.01), 0.75)
 points(draw.angle[,1],draw.angle[,2], type="l", col="navy", lwd=2)
 text(0.95,0.4,expression(theta), cex=cex.greek, col="navy", f=2)
@@ -226,26 +227,13 @@ bound.list <- list("orange.lowBound" = 0.275,
                    "purple.lowBound" = 4.43,
                    "pink.lowBound" = 4.9,
                    "red.lowBound" = 5.6)
+color.names <- sub("(^[^-]+)\\..*", "\\1", names(bound.list))
+up.idx <- c(2:7,1)
 # Define length of threshold
 length.threshold = pm+10
-
-a.orange <- seq(a.orange.down,a.yellow.down,length.out=100)
-a.yellow <- seq(a.yellow.down,a.green.down,length.out=100)
-a.green <- seq(a.green.down,a.blue.down,length.out=100)
-a.blue <- seq(a.blue.down,a.purple.down,length.out=100)
-a.purple <- seq(a.purple.down,a.pink.down,length.out=100)
-a.pink <- seq(a.pink.down,a.red.down,length.out=100)
-a.red <- seq(a.red.down,(2*pi)+a.orange.down,length.out=100)
-
+# Variance of von Mises
 Kappa = 10
-d.orange = vonMises(a=a.orange,mu=as.numeric(dangle),kappa=Kappa)
-d.yellow = vonMises(a=a.yellow,mu=as.numeric(dangle),kappa=Kappa)
-d.green = vonMises(a=a.green,mu=as.numeric(dangle),kappa=Kappa)
-d.blue = vonMises(a=a.blue,mu=as.numeric(dangle),kappa=Kappa)
-d.purple = vonMises(a=a.purple,mu=as.numeric(dangle),kappa=Kappa)
-d.pink = vonMises(a=a.pink,mu=as.numeric(dangle),kappa=Kappa)
-d.red = vonMises(a=a.red,mu=as.numeric(dangle),kappa=Kappa)
-
+# Paths displayed in plot
 show.trials <- 10
 
 # Setting up margins and font
@@ -263,12 +251,20 @@ pm <- boundary+1.15  # xlim and ylim
 ########################################
 plot(-10:10,-10:10,type="n", ann = FALSE, axes = FALSE,
      xlim=c(-pm,pm),ylim=c(-pm,pm))
-a <- seq(from=0,to=2*pi,length.out=300)
-d <- vonMises(a=a,mu=as.numeric(dangle),kappa=Kappa)
+arc <- seq(from=0,to=2*pi,length.out=300)
+den <- vonMises(a=arc,mu=as.numeric(dangle),kappa=Kappa)
 polygon(x=(boundary+d)*cos(a),y=(boundary+d)*sin(a),xpd=NA, col="gray", lwd=2)
-polygon(x=(boundary+d.orange)*cos(a.orange),y=(boundary+d.orange)*sin(a.orange),xpd=NA, col="orange")
+for(j in bound.list){
+     idx <- as.numeric(which(bound.list==j))
+     idx2 <- up.idx[idx]
+     arc <- seq(from=j,to=bound.list[[idx2]],length.out=300)
+     den <- vonMises(a=arc,mu=as.numeric(dangle),kappa=Kappa)
+     polygon(x=(boundary+den)*cos(arc),
+             y=(boundary+den)*sin(arc),
+             xpd=NA, col=color.names[idx])
+}
 symbols(x=0,y=0,circles=boundary,add=TRUE,inches=FALSE,xpd=NA,fg='grey50',bg = "white")
-for(i in 1:nCols){
+for(i in 1:nPoints){
   w = round(i/nrow(circle),2)
   points(circle[i,1],circle[i,2], col = rgb(r[i],g[i],b[i],1), lwd=10)
 }
@@ -281,7 +277,7 @@ for(a in bound.list){
   rise = polarToRect(a,length.threshold)[2]
   lines(c(0,run),c(0,rise))
 }
-text(boundary+0.5,3.5, "Yellow", f=2, cex=cex.text)
+text(boundary-0.5,4, "Yellow", f=2, cex=cex.text)
 text(boundary+0.9,1.75, "Orange", f=2, cex=cex.text)
 text(boundary+0.5,-0.5, "Red", f=2, cex=cex.text)
 text(boundary-0.75,-2.75, "Pink", f=2, cex=cex.text)
