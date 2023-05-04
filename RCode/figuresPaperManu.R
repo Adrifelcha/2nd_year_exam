@@ -228,6 +228,9 @@ bound.list <- list("orange.lowBound" = 0.275,
                    "pink.lowBound" = 4.9,
                    "red.lowBound" = 5.6)
 color.names <- sub("(^[^-]+)\\..*", "\\1", names(bound.list))
+
+up.bound <- bound.list
+up.bound[[1]] = (2*pi)-bound.list[[1]]
 up.idx <- c(2:7,1)
 # Define length of threshold
 length.threshold = pm+10
@@ -251,17 +254,32 @@ pm <- boundary+1.15  # xlim and ylim
 ########################################
 plot(-10:10,-10:10,type="n", ann = FALSE, axes = FALSE,
      xlim=c(-pm,pm),ylim=c(-pm,pm))
-arc <- seq(from=0,to=2*pi,length.out=300)
-den <- vonMises(a=arc,mu=as.numeric(dangle),kappa=Kappa)
-polygon(x=(boundary+d)*cos(a),y=(boundary+d)*sin(a),xpd=NA, col="gray", lwd=2)
+full.arc <- seq(from=0,to=2*pi,length.out=1000)
+full.d <- vonMises(a=full.arc,mu=as.numeric(dangle),kappa=Kappa, degrees = FALSE)
+polygon(x=(boundary+full.d)*cos(full.arc),
+        y=(boundary+full.d)*sin(full.arc),xpd=NA, col="gray", lwd=2)
 for(j in bound.list){
-     idx <- as.numeric(which(bound.list==j))
-     idx2 <- up.idx[idx]
-     arc <- seq(from=j,to=bound.list[[idx2]],length.out=300)
-     den <- vonMises(a=arc,mu=as.numeric(dangle),kappa=Kappa)
-     polygon(x=(boundary+den)*cos(arc),
-             y=(boundary+den)*sin(arc),
-             xpd=NA, col=color.names[idx])
+  j = bound.list[[2]]
+  idx <- as.numeric(which(bound.list==j))
+  idx2 <- up.idx[idx]
+  
+  arc <- seq(from=j,to=up.bound[[idx2]],length.out=500)
+  x1 = polarToRect(arc,boundary)[,1]
+  y1 = polarToRect(arc,boundary)[,2]
+  
+  keep = round(full.arc,1) %in% round(arc,1)
+  d.points = full.d[keep]
+  a.points = full.arc[keep]
+  
+  x2 = rev(polarToRect(a.points,boundary)[,1])
+  y.point = (boundary+d.points)*sin(a.points)
+  y2 = rev(y.point)
+  
+  x.range = c(x1,x2)
+  y.range = c(y1,y2)
+  polygon(x=x.range, y=y.range,
+          xpd=NA, col=color.names[idx])
+  
 }
 symbols(x=0,y=0,circles=boundary,add=TRUE,inches=FALSE,xpd=NA,fg='grey50',bg = "white")
 for(i in 1:nPoints){
@@ -288,7 +306,6 @@ for(i in 1:show.trials){
   points(choices[i,1],choices[i,2], type = "p", pch =16, cex=1.5,
          col=rgb(0,0,0,0.75))
 }
-
 
 
 # Extra cool functions
