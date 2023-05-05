@@ -247,52 +247,105 @@ f = 1
 par(pty="s")             # Square canvas
 par(mfrow=c(1,1),        # A single plot
     mar = c(0, 0, 0, 0)) # outer margins
-pm <- boundary+1.15  # xlim and ylim
+pm <- boundary+1.25      # xlim and ylim
 
 ########################################
 # Draw base circle
 ########################################
 plot(-10:10,-10:10,type="n", ann = FALSE, axes = FALSE,
      xlim=c(-pm,pm),ylim=c(-pm,pm))
+# Shade the von Mises egg (full circle)
 full.arc <- seq(from=0,to=2*pi,length.out=1000)
 full.d <- vonMises(a=full.arc,mu=as.numeric(dangle),kappa=Kappa, degrees = FALSE)
 polygon(x=(boundary+full.d)*cos(full.arc),
         y=(boundary+full.d)*sin(full.arc),xpd=NA, col="gray", lwd=2)
+# Add shading for every category
 for(j in bound.list){
-  j = bound.list[[2]]
-  idx <- as.numeric(which(bound.list==j))
-  idx2 <- up.idx[idx]
-  
-  arc <- seq(from=j,to=up.bound[[idx2]],length.out=500)
-  x1 = polarToRect(arc,boundary)[,1]
-  y1 = polarToRect(arc,boundary)[,2]
-  
-  keep = round(full.arc,1) %in% round(arc,1)
-  d.points = full.d[keep]
-  a.points = full.arc[keep]
-  
-  x2 = rev(polarToRect(a.points,boundary)[,1])
-  y.point = (boundary+d.points)*sin(a.points)
-  y2 = rev(y.point)
-  
-  x.range = c(x1,x2)
-  y.range = c(y1,y2)
-  polygon(x=x.range, y=y.range,
-          xpd=NA, col=color.names[idx])
+    j = bound.list[[2]]
+    idx <- as.numeric(which(bound.list==j))    # Indexing
+    idx2 <- up.idx[idx]
+    arc <- seq(from=j,to=up.bound[[idx2]],     # Define arc
+               length.out=500)
+    # Draw shade 
+    # Bottom [x,y] (at circumference)
+    x1 = polarToRect(arc,boundary)[,1]    
+    y1 = polarToRect(arc,boundary)[,2]
+    # Define top [x,y] (at threshold and density)
+    keep = round(full.arc,1) %in% round(arc,1)  # Truncate density
+    d.points = full.d[keep]
+    a.points = full.arc[keep]
+    x2_curve = (boundary+d.points)*cos(a.points) # Draw curve
+    y2_curve = (boundary+d.points)*sin(a.points)
+    
+    full.threshold.pts = seq(boundary,length.threshold,length.out=10000)
+    x.threshold.all.1 = polarToRect(arc[1],full.threshold.pts)[,1]
+    y.threshold.all.1 = polarToRect(arc[1],full.threshold.pts)[,2]
+    x.threshold.all.2 = polarToRect(arc[length(arc)],full.threshold.pts)[,1]
+    y.threshold.all.2 = polarToRect(arc[length(arc)],full.threshold.pts)[,2]
+    
+    
+    
+    x.threshold.r = x2_curve[1]
+    x.threshold.l = x1[length(x1)]
+    x2_range = seq(x.threshold.l,x.threshold.r,length.out=sum(keep))
+    abline(v=c(x2_range[1],x2_range[length(x2_range)]))
+    
+    
+    y.threshold.1_r = median(y.threshold.all.1[which(round(x.threshold.all.1,3) == round(x2_curve[1],3))])
+    y.threshold.1_l = y1[length(y1)]
+    y.threshold.1 = seq(x.threshold.l,x.threshold.r,length.out=sum(keep))
+    y.threshold.1 = rev(y.threshold.1)
+    abline(h=y.threshold.1_l, col="red")
+    
+    y.threshold.2 = polarToRect(a.points[length(a.points)],full.threshold.pts)[,2]
+    y.threshold.2 = rev(y.threshold.2)
+    
+    diff.1 = y.threshold.1-y2_curve
+    conv.point1 = which(diff.1==min(diff.1))
+    
+    diff.2 = y.threshold.2-y2_curve
+    conv.point2 = which(diff.2==min(diff.2))
+    
+    y2 = NA
+    x2 = NA
+    for(i in 1:length(y2_curve)){
+      left.side = min(y2_curve[i],y.threshold.1[i])
+      right.side = min(y2_curve[i],y.threshold.2[i])
+      y2[i] = min(left.side,right.side)
+      x2 = rev(x2_curve)
+    }
+    y2 = rev(y2)
+    
+    # abline(h=y.threshold.1[length(y.threshold.1)], col="blue")
+    # abline(h=y2_curve[length(y2_curve)], col="blue")
+    # abline(v=x2_curve[length(y2_curve)], col="blue")
+    
+    # Test - Previous working case
+    x.range = c(x1,rev(x2_curve))
+    y.range = c(y1,rev(y2_curve))
+    polygon(x=x.range, y=y.range,
+            xpd=NA, col=paste(color.names[idx],"4",sep=""))
+    
+    x.range = c(x1,x2)
+    y.range = c(y1,y2)
+    polygon(x=x.range, y=y.range,
+            xpd=NA, col=color.names[idx])
+    
+    
   
 }
 symbols(x=0,y=0,circles=boundary,add=TRUE,inches=FALSE,xpd=NA,fg='grey50',bg = "white")
-for(i in 1:nPoints){
-  w = round(i/nrow(circle),2)
-  points(circle[i,1],circle[i,2], col = rgb(r[i],g[i],b[i],1), lwd=10)
-}
+# for(i in 1:nPoints){
+#   w = round(i/nrow(circle),2)
+#   points(circle[i,1],circle[i,2], col = rgb(r[i],g[i],b[i],1), lwd=10)
+# }
 for(i in 1:show.trials){
   z = seq(1,sum(!is.na(state[,,i])),length.out=55)
   points(state[z,,i], type = "l", col="gray75", lwd=1)
 }
 for(a in bound.list){
-  run = polarToRect(a,length.threshold)[1]
-  rise = polarToRect(a,length.threshold)[2]
+  run = polarToRect(a,length.threshold)[,1]
+  rise = polarToRect(a,length.threshold)[,2]
   lines(c(0,run),c(0,rise))
 }
 text(boundary-0.5,4, "Yellow", f=2, cex=cex.text)
