@@ -1,0 +1,81 @@
+---
+title: "Assignment 3"
+author: "Adriana Chavez"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+# Load necessary libraries/packages
+```
+
+```{r}
+library(R2jags)
+seed <- 20
+```
+
+# Example 1
+
+### Step 0: Generate some data
+
+```{r}
+n <- 100
+p <- 0.8
+y <- rbinom(n,1,p)
+```
+
+### Step 1: Write a JAGS model
+
+```{r}
+model <- write("
+                model {
+                        # Prior beliefs about parameter
+                        p ~ dunif(0,1)
+                        
+                        # Specify likelihood function
+                        for(i in 1:n){   y[i] ~ dbern(p)    }
+                      }", "./model.bug")
+```
+
+```{r}
+# General setup
+n.chains  <- 4;      n.iter    <- 1000
+n.burnin  <- 100;    n.thin    <- 1
+
+# Pass data to JAGS
+data_toJAGS <- list("y"  =  y, "n" =  n)
+
+# Specify parameters to keep track of
+parameters <- c('p')
+
+# Prepare initial values
+myinits <- rep(list(list()), n.chains)
+for(i in 1:n.chains){
+    myinits[[i]] <- list(p = runif(length(data_toJAGS$n),0,1))
+}
+```
+
+```{r}
+set.seed(seed)
+
+start <- Sys.time()
+samples <- jags(data=data_toJAGS,
+                parameters.to.save=parameters,
+                model="./model.bug",
+                n.chains=n.chains,  n.iter=1000,
+                n.burnin=100,  n.thin=n.thin,
+                DIC=T, inits=myinits)
+end <- Sys.time()
+
+cat("Time required to fit this model:", round(end-start, 4), "seconds")
+```
+
+```{r}
+p <- samples$BUGSoutput$sims.array[,,"p"]
+
+plot(p[,1], type="l")
+for(i in 2:n.chains){
+  lines(p[,i], col=i)
+}
+```

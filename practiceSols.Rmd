@@ -1,0 +1,72 @@
+---
+title: "199 R Practice"
+author: "Adriana Chavez"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Assignment 1
+
+## Step 1
+
+```{r}
+link <- "https://raw.githubusercontent.com/Adrifelcha/2nd_year_exam/refs/heads/main/toyData.csv"
+data <- read.csv(url(link), header = TRUE)
+head(data)
+```
+
+## Step 2 
+
+```{r}
+tooshort_RT <- data$rt<0.3
+toolong_RT <- data$rt>3
+badRT <- tooshort_RT | toolong_RT
+
+cleanData <- data[!badRT,]
+```
+
+```{r}
+nrow(data)
+nrow(cleanData)
+```
+
+
+## Step 3
+
+```{r}
+save(cleanData, file="./cleanToyData.RData")
+```
+
+
+## Step 4
+
+**What’s the ID of the participants with the slowest and the fastest average response time?**
+
+```{r}
+RTperPart <- tapply(cleanData$rt, cleanData$sub, mean)
+sort(RTperPart)
+```
+
+**What’s the ID of the participants with the lowest and highest total accuracy?**
+
+```{r}
+ACCperPart <- tapply(cleanData$accuracy, cleanData$sub, mean)
+sort(ACCperPart)
+```
+
+**Make a plot that allows you to visually compare the accuracy rates obtained by the participants in each condition.**
+
+```{r}
+table(cleanData$cond)
+```
+
+# Assignment 2
+
+```{r}
+
+```
+

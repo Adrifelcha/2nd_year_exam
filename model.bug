@@ -1,0 +1,8 @@
+
+                model {
+                        # Prior beliefs about parameter
+                        p ~ dunif(0,1)
+                        
+                        # Specify likelihood function
+                        for(i in 1:n){   y[i] ~ dbern(p)    }
+                      }
